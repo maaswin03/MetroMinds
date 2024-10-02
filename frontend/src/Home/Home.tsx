@@ -41,7 +41,6 @@ function Home() {
           <BentoDemo />
         </div>
       </div>
-
     </>
   );
 }
