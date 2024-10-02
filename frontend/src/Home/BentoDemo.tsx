@@ -5,10 +5,9 @@ import {
     InputIcon,
 } from "@radix-ui/react-icons";
 
-import { WiDayLightning } from "react-icons/wi";
-
-
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+
+import { WiDayLightning } from "react-icons/wi";
 
 const features = [
     {
@@ -61,7 +60,7 @@ const features = [
 
 function BentoDemo() {
     return (
-        <BentoGrid className="lg:grid-rows-4">
+        <BentoGrid className="lg:grid-rows-3">
             {features.map((feature) => (
                 <BentoCard key={feature.name} {...feature} />
             ))}
@@ -70,3 +69,4 @@ function BentoDemo() {
 }
 
 export default BentoDemo;
+

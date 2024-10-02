@@ -5,6 +5,8 @@ import { RainbowButton } from "@/components/ui/rainbow-button";
 import Navbar from "@/AddedWidget/Navbar";
 import './Home.css'
 import BentoDemo from "./BentoDemo";
+import { Globe } from "@/components/ui/globe";
+// import MarqueeDemo from "./Marqueedemo";
 
 function Home() {
   const { theme } = useTheme();
@@ -25,7 +27,7 @@ function Home() {
         </div>
         <Particles
           className="absolute inset-0"
-          quantity={500}
+          quantity={1000}
           ease={80}
           color={color}
           refresh
@@ -40,6 +42,26 @@ function Home() {
         <div className="home-4">
           <BentoDemo />
         </div>
+      </div>
+
+
+      <div className="home-6">
+        <div className="home-7">
+          <div className="home-8">
+            <Globe />
+          </div>
+        </div>
+        <div className="home-7">
+          <div className="home-9">
+            <h1>Transforming India with Sustainable Urban Management</h1>
+            <p>Ready to explore? Visit the MetroMinds dashboard for intuitive tools and interfaces that streamline urban management.</p>
+            <RainbowButton style={{ marginTop: '2%', fontFamily: 'Poppins', fontWeight: '400', letterSpacing: '0.7px', fontSize: '13px' }}>Go to dashboard</RainbowButton>
+          </div>
+        </div>
+      </div>
+
+      <div className="home-10">
+
       </div>
     </>
   );
