@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Navbar.css";
+import {Link} from 'react-router-dom';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -14,9 +15,9 @@ function Navbar() {
 
         <div className="navbar-2 navbar-3">
 
-          <a href="" id="Title">Metro Minds</a>
+          <Link to="/" id="Title">Metro Minds</Link>
 
-          <a href="">DashBoard</a>
+          <Link to="/dashboard">DashBoard</Link>
 
           <a href="">Services</a>
 
