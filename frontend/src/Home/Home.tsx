@@ -6,6 +6,7 @@ import Navbar from "@/AddedWidget/Navbar";
 import './Home.css'
 import BentoDemo from "./BentoDemo";
 import { Globe } from "@/components/ui/globe";
+import Footer from "@/AddedWidget/Footer";
 // import MarqueeDemo from "./Marqueedemo";
 
 function Home() {
@@ -63,6 +64,8 @@ function Home() {
       <div className="home-10">
 
       </div>
+
+      <Footer/>
     </>
   );
 }
