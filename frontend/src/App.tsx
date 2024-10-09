@@ -17,11 +17,11 @@ export default function App() {
         {isSignedIn ? (
           <Route path="/dashboard" element={<Dashboard />} />
         ) : (
-          <Route path="/dashboard" element={<Navigate to="/" />} />
+          <Route path="/dashboard" element={<Navigate to="/Signin" />} />
         )}
 
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<Signin />} />
+        <Route path="/Signin" element={<Signin />} />
       </Routes>
     </Router>
   );
