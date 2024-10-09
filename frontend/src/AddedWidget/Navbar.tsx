@@ -53,7 +53,7 @@ function Navbar() {
             {isSignedIn ? (
               <UserButton afterSignOutUrl="/Signin" />
             ) : (
-              <Link to="*">Signin</Link>
+              <Link to="/Signin">Signin</Link>
             )}
           </ul>
         </nav>
