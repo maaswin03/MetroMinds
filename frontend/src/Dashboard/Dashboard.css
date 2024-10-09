@@ -1,0 +1,47 @@
+.dashboard-1 {
+  width: 95%;
+  margin: auto;
+  margin-top: 2%;
+}
+
+.dashboard-1 h1 {
+  font-size: 30px;
+  font-weight: 800;
+  font-family: Poppins;
+  letter-spacing: 0.7px;
+}
+
+.dashboard-1 p {
+  font-weight: 300;
+  font-family: Poppins;
+  font-size: 15px;
+  letter-spacing: 0.7px;
+  line-height: 25px;
+}
+
+.dashboard-2 {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+  padding-top: 2%;
+}
+
+.dashboard-3 {
+  width: 49%;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: auto;
+  margin-bottom: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+}
+
+.dashboard-3 h1{
+  font-size: 20px;
+  font-weight: 300;
+}

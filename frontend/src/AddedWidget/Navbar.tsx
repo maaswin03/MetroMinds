@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./Navbar.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { UserButton, useUser } from "@clerk/clerk-react";
 
 function Navbar() {
+  const { isSignedIn } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
@@ -26,7 +28,11 @@ function Navbar() {
         </div>
 
         <div className="navbar-2 navbar-5">
-          <button>Sign In</button>
+          {isSignedIn ? (
+            <UserButton afterSignOutUrl="#" />
+          ) : (
+            <Link to="*">Signin</Link>
+          )}
         </div>
 
       </div>
@@ -44,6 +50,11 @@ function Navbar() {
             <li><a href="" id="Title">Metro Minds</a></li>
             <li><a href="/">Home</a></li>
             <li><a href="/dashboard">Dashboard</a></li>
+            {isSignedIn ? (
+              <UserButton afterSignOutUrl="/Signin" />
+            ) : (
+              <Link to="*">Signin</Link>
+            )}
           </ul>
         </nav>
       </header>
