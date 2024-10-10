@@ -56,7 +56,6 @@ app.post("/flood_monitoring_data", async (req, res) => {
     const data = await flood_monitoring_data.findOne({ device_id: device_id });
 
     if (data) {
-      console.log(data);
       res.status(200).json(data);
     } else {
       res.status(404).json({ message: "Data not found for this device_id" });
@@ -78,7 +77,6 @@ app.post("/Earthquake_monitoring_data", async (req, res) => {
     });
 
     if (data) {
-      console.log(data);
       res.status(200).json(data);
     } else {
       res.status(404).json({ message: "Data not found for this device_id" });
@@ -100,7 +98,6 @@ app.post("/City_sound_monitoring_data", async (req, res) => {
     });
 
     if (data) {
-      console.log(data);
       res.status(200).json(data);
     } else {
       res.status(404).json({ message: "Data not found for this device_id" });
@@ -122,7 +119,6 @@ app.post("/Smartbin_monitoring_data", async (req, res) => {
     });
 
     if (data) {
-      console.log(data);
       res.status(200).json(data);
     } else {
       res.status(404).json({ message: "Data not found for this device_id" });
@@ -144,7 +140,6 @@ app.post("/Trafficflow_monitoring_data", async (req, res) => {
     });
 
     if (data) {
-      console.log(data);
       res.status(200).json(data);
     } else {
       res.status(404).json({ message: "Data not found for this device_id" });
