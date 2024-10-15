@@ -1,6 +1,7 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
+const axios = require('axios');
 require("dotenv").config();
 
 const app = express();
@@ -65,6 +66,20 @@ app.post("/flood_monitoring_data", async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
+
+app.get('/api/get-location', async (req, res) => {
+  const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+
+  try {
+      const response = await axios.get(`https://ipapi.co/${userIp}/json/`);
+      const locationData = response.data;
+      res.json({ ip: userIp, location: locationData });
+  } catch (error) {
+      console.error('Error fetching location data:', error);
+      res.status(500).json({ error: 'Unable to fetch location data' });
+  }
+});
+
 
 app.get("/flood_monitoring_data_all", async (req, res) => {
   try {

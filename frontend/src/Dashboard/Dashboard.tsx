@@ -125,20 +125,20 @@ function Dashboard() {
     }, []);
 
 
-    const diffwaterlevel = Math.round(
-        Number(floodData.current_waterLevel) - Number(floodData.previous1_waterLevel)
+    const diffwaterlevel = parseFloat(
+        (Number(floodData.current_waterLevel) - Number(floodData.previous1_waterLevel)).toFixed(2)
     );
 
-    const diffrainfall = Math.round(
-        Number(floodData.current_rainfall) - Number(floodData.previous1_rainfall)
+    const diffrainfall = parseFloat(
+        (Number(floodData.current_rainfall) - Number(floodData.previous1_rainfall)).toFixed(2)
     );
 
-    const diffflowrate = Math.round(
-        Number(floodData.current_flowRate) - Number(floodData.previous1_flowRate)
+    const diffflowrate = parseFloat(
+        (Number(floodData.current_flowRate) - Number(floodData.previous1_flowRate)).toFixed(2)
     );
 
-    const diffsoil = Math.round(
-        Number(floodData.current_soilMoisture) - Number(floodData.previous1_soilMoisture)
+    const diffsoil = parseFloat(
+        (Number(floodData.current_soilMoisture) - Number(floodData.previous1_soilMoisture)).toFixed(2)
     );
 
 
@@ -543,7 +543,7 @@ function Dashboard() {
                     <MapContainer
                         center={[11.0254, 77.1246]}
                         zoom={10}
-                        style={{ height: '500px', width: '100%' }}
+                        style={{ height: '500px', width: '100%' , fontFamily:'Poppins',letterSpacing:'0.7px',fontWeight:'300'}}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -553,19 +553,19 @@ function Dashboard() {
                             loc.coordinates && loc.coordinates.length === 2 ? (
                                 <Marker key={index} position={loc.coordinates} icon={markerIcon}>
                                     <Popup>
-                                        <strong>{loc.device_location || "Unknown Device"}</strong>
+                                        <strong style={{fontWeight:'500'}}>{loc.device_location || "Unknown Device"}</strong>
                                         <br />
-                                        Water Level: {loc.current_waterLevel !== undefined ? loc.current_waterLevel : "N/A"} m
+                                        Water Level : {loc.current_waterLevel !== undefined ? loc.current_waterLevel : "N/A"} m
                                         <br />
-                                        Rainfall: {loc.current_rainfall !== undefined ? loc.current_rainfall : "N/A"} mm
+                                        Rainfall : {loc.current_rainfall !== undefined ? loc.current_rainfall : "N/A"} mm
                                         <br />
-                                        Flow Rate: {loc.current_flowRate !== undefined ? loc.current_flowRate : "N/A"} m³/s
+                                        Flow Rate : {loc.current_flowRate !== undefined ? loc.current_flowRate : "N/A"} m³/s
                                         <br />
-                                        Soil Moisture: {loc.current_soilMoisture !== undefined ? loc.current_soilMoisture : "N/A"} %
+                                        Soil Moisture : {loc.current_soilMoisture !== undefined ? loc.current_soilMoisture : "N/A"} %
                                         <br />
-                                        Date: {loc.current_date || "N/A"}
+                                        Date : {loc.current_date || "N/A"}
                                         <br />
-                                        Time: {loc.current_time || "N/A"}
+                                        Time : {loc.current_time || "N/A"}
                                         <br />
                                     </Popup>
                                 </Marker>
