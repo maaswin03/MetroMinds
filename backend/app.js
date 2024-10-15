@@ -1,7 +1,7 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
-require('dotenv').config()
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -48,7 +48,6 @@ async function run() {
 
 run().catch(console.dir);
 
-
 app.post("/flood_monitoring_data", async (req, res) => {
   const device_id = req.body.device_id;
 
@@ -66,6 +65,23 @@ app.post("/flood_monitoring_data", async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
+
+app.get("/flood_monitoring_data_all", async (req, res) => {
+  try {
+    const data = await flood_monitoring_data.find({}).toArray(function(err, result) {
+      if (err) throw err;
+    });
+
+    if (data && data.length > 0) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({ message: "No data found for the specified criteria." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error: error.message });
+  }
+});
+
 
 
 app.post("/Earthquake_monitoring_data", async (req, res) => {
@@ -88,7 +104,6 @@ app.post("/Earthquake_monitoring_data", async (req, res) => {
   }
 });
 
-
 app.post("/City_sound_monitoring_data", async (req, res) => {
   const device_id = req.body.device_id;
 
@@ -108,7 +123,6 @@ app.post("/City_sound_monitoring_data", async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
-
 
 app.post("/Smartbin_monitoring_data", async (req, res) => {
   const device_id = req.body.device_id;
@@ -130,7 +144,6 @@ app.post("/Smartbin_monitoring_data", async (req, res) => {
   }
 });
 
-
 app.post("/Trafficflow_monitoring_data", async (req, res) => {
   const device_id = req.body.device_id;
 
@@ -150,7 +163,6 @@ app.post("/Trafficflow_monitoring_data", async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 });
-
 
 const PORT = process.env.PORT || 5100;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

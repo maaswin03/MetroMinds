@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Dashboard from './Dashboard/Dashboard';
 import Home from "./Home/Home";
 import Signin from "./Autentication/Signin";
+import EarthQuakeMonitoring from "./EarthQuakeMonitoring/EarthQuakeMonitoring";
+import Citysoundmonitoring from "./Citysoundmonitoring/Citysoundmonitoring";
 
 export default function App() {
   const { isSignedIn, isLoaded } = useAuth();
@@ -19,6 +21,16 @@ export default function App() {
         ) : (
           <Route path="/dashboard" element={<Navigate to="/Signin" />} />
         )}
+        {isSignedIn ? (
+          <Route path="/earthquakemonitoring" element={<EarthQuakeMonitoring/>} />
+        ) : (
+          <Route path="/earthquakemonitoring" element={<Navigate to="/Signin" />} />
+        )}
+        {isSignedIn ? (
+          <Route path="/citysoundmonitoring" element={<Citysoundmonitoring/>} />
+        ) : (
+          <Route path="/citysoundmonitoring" element={<Navigate to="/Signin" />} />
+        )}
 
         <Route path="/" element={<Home />} />
         <Route path="/Signin" element={<Signin />} />
@@ -26,3 +38,4 @@ export default function App() {
     </Router>
   );
 }
+

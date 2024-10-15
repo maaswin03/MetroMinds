@@ -18,11 +18,11 @@ header{
 }
 
 .navbar-2 {
-  width: 50%;
+  width: 43%;
+  margin: auto;
   height: 60px;
   display: flex;
   align-items: center;
-  padding-left: 3%;
 }
 
 #Title{
@@ -53,25 +53,6 @@ header{
 
 .navbar-5 {
   justify-content: right;
-  margin-right: 2%;
-}
-
-.navbar-5 button {
-  padding: 1%;
-  border-radius: 50px;
-  /* background: rgb(108, 71, 255);
-  background: linear-gradient(
-    360deg,
-    rgba(108, 71, 255, 1) 44%,
-    rgba(151, 0, 255, 0.65172006302521) 100%
-  ); */
-  background-color: black;
-  border: none;
-  color: white;
-  font-size: 13px;
-  letter-spacing: 0.7px;
-  font-weight: 300;
-  width: 15%;
 }
 
 .navbar-5 input::placeholder {

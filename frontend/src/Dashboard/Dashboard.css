@@ -98,3 +98,34 @@
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
+
+.dashboard-7{
+  width: 90%;
+  margin: auto;
+  margin-top: 3%;
+}
+
+.dashboard-7 h1 {
+  font-size: 30px;
+  font-weight: 800;
+  font-family: Poppins;
+  letter-spacing: 0.7px;
+}
+
+.dashboard-7 p {
+  font-weight: 300;
+  font-family: Poppins;
+  font-size: 15px;
+  letter-spacing: 0.7px;
+  line-height: 25px;
+  margin-bottom: 2%;
+}
+
+
+.dashboard-8{
+  width: 100%;
+  margin: auto;
+
+}
+

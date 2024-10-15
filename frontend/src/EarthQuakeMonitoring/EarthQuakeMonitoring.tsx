@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
-
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import markerIconPng from 'leaflet/dist/images/marker-icon.png';
-import markerShadowPng from 'leaflet/dist/images/marker-shadow.png';
-import axios from 'axios';
-
-
 import Navbar from "@/AddedWidget/Navbar";
-import './Dashboard.css';
+import './EarthQuakeMonitoring.css';
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -40,30 +31,14 @@ interface SensorData {
     [key: string]: any;
 }
 
-
-const markerIcon = new L.Icon({
-    iconUrl: markerIconPng,
-    shadowUrl: markerShadowPng,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41],
-});
-
-interface Location {
-    [key: string]: any;
-}
-
-
-function Dashboard() {
-    const [floodLocations, setFloodLocations] = useState<Location[]>([]);
+function EarthQuakeMonitoring() {
     const [floodData, setFloodData] = useState<SensorData>({});
     const deviceId = "max78000fthr";
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("https://metrominds.onrender.com/flood_monitoring_data", {
+                const response = await fetch("https://metrominds.onrender.com/Earthquake_monitoring_data", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -87,60 +62,22 @@ function Dashboard() {
         fetchData();
     }, [deviceId]);
 
-
-    useEffect(() => {
-        const fetchFloodData = async () => {
-            try {
-                const response = await axios.get('https://metrominds.onrender.com/flood_monitoring_data_all');
-                const floodData: Location[] = response.data;
-
-                console.log("Flood Data:", floodData);
-
-
-                const validFloodData = floodData
-                    .map(location => {
-                        if (location.latitude !== undefined && location.longitude !== undefined) {
-                            return {
-                                ...location,
-                                coordinates: [location.latitude, location.longitude],
-                            };
-                        }
-                        return null;
-                    })
-                    .filter(location => location !== null);
-
-                if (validFloodData.length > 0) {
-                    setFloodLocations(validFloodData);
-                } else {
-                    console.warn("No valid flood locations found");
-                    setFloodLocations([]);
-                }
-
-            } catch (error) {
-                console.error('Error fetching flood data:', error);
-            }
-        };
-
-        fetchFloodData();
-    }, []);
-
-
-    const diffwaterlevel = Math.round(
-        Number(floodData.current_waterLevel) - Number(floodData.previous1_waterLevel)
+    const diffseismicActivity = parseFloat(
+        (Number(floodData.current_seismicActivity) - Number(floodData.previous1_seismicActivity)).toFixed(2)
     );
-
-    const diffrainfall = Math.round(
-        Number(floodData.current_rainfall) - Number(floodData.previous1_rainfall)
+    
+    const diffacceleration = parseFloat(
+        (Number(floodData.current_acceleration) - Number(floodData.previous1_acceleration)).toFixed(2)
     );
-
-    const diffflowrate = Math.round(
-        Number(floodData.current_flowRate) - Number(floodData.previous1_flowRate)
+    
+    const diffstrain = parseFloat(
+        (Number(floodData.current_strain) - Number(floodData.previous1_strain)).toFixed(2)
     );
-
-    const diffsoil = Math.round(
-        Number(floodData.current_soilMoisture) - Number(floodData.previous1_soilMoisture)
+    
+    const diffdepth = parseFloat(
+        (Number(floodData.current_depth) - Number(floodData.previous1_depth)).toFixed(2)
     );
-
+    
 
     const chartData = {
         labels: [
@@ -155,12 +92,12 @@ function Dashboard() {
             {
                 label: "Water Level (m)",
                 data: [
-                    floodData.previous5_waterLevel,
-                    floodData.previous4_waterLevel,
-                    floodData.previous3_waterLevel,
-                    floodData.previous2_waterLevel,
-                    floodData.previous1_waterLevel,
-                    floodData.current_waterLevel,
+                    floodData.previous5_seismicActivity,
+                    floodData.previous4_seismicActivity,
+                    floodData.previous3_seismicActivity,
+                    floodData.previous2_seismicActivity,
+                    floodData.previous1_seismicActivity,
+                    floodData.current_seismicActivity,
                 ],
                 borderColor: "rgb(108, 71, 255,1)",
                 backgroundColor: "rgb(108, 71, 255,0.3)",
@@ -180,14 +117,14 @@ function Dashboard() {
         ],
         datasets: [
             {
-                label: "Rainfall (mm)",
+                label: "Acceleration (mm)",
                 data: [
-                    floodData.previous5_rainfall,
-                    floodData.previous4_rainfall,
-                    floodData.previous3_rainfall,
-                    floodData.previous2_rainfall,
-                    floodData.previous1_rainfall,
-                    floodData.current_rainfall,
+                    floodData.previous5_acceleration,
+                    floodData.previous4_acceleration,
+                    floodData.previous3_acceleration,
+                    floodData.previous2_acceleration,
+                    floodData.previous1_acceleration,
+                    floodData.current_acceleration,
                 ],
                 borderColor: "rgb(108, 71, 255,1)",
                 backgroundColor: "rgb(108, 71, 255,0.3)",
@@ -208,14 +145,14 @@ function Dashboard() {
         ],
         datasets: [
             {
-                label: "Flow rate (m³/s)",
+                label: "strain (m³/s)",
                 data: [
-                    floodData.previous5_flowRate,
-                    floodData.previous4_flowRate,
-                    floodData.previous3_flowRate,
-                    floodData.previous2_flowRate,
-                    floodData.previous1_flowRate,
-                    floodData.current_flowRate,
+                    floodData.previous5_strain,
+                    floodData.previous4_strain,
+                    floodData.previous3_strain,
+                    floodData.previous2_strain,
+                    floodData.previous1_strain,
+                    floodData.current_strain,
                 ],
                 borderColor: "rgb(108, 71, 255,1)",
                 backgroundColor: "rgb(108, 71, 255,0.3)",
@@ -237,12 +174,12 @@ function Dashboard() {
             {
                 label: "Soil Moisture (%)",
                 data: [
-                    floodData.previous5_soilMoisture,
-                    floodData.previous4_soilMoisture,
-                    floodData.previous3_soilMoisture,
-                    floodData.previous2_soilMoisture,
-                    floodData.previous1_soilMoisture,
-                    floodData.current_soilMoisture,
+                    floodData.previous5_depth,
+                    floodData.previous4_depth,
+                    floodData.previous3_depth,
+                    floodData.previous2_depth,
+                    floodData.previous1_depth,
+                    floodData.current_depth,
                 ],
                 borderColor: "rgb(108, 71, 255,1)",
                 backgroundColor: "rgb(108, 71, 255,0.3)",
@@ -307,20 +244,20 @@ function Dashboard() {
         scales: {
             y: {
                 min: 0,
-                max: 30,
+                max: 0.5,
                 grid: {
                     display: false,
                 },
                 title: {
                     display: false,
-                    text: "Rainfall (mm)",
+                    text: "Acceleration (mm)",
                     font: {
                         family: "Poppins",
                         size: 12,
                     },
                 },
                 ticks: {
-                    stepSize: 15,
+                    stepSize: 0.25,
                     font: {
                         family: "Poppins",
                         size: 12,
@@ -365,7 +302,7 @@ function Dashboard() {
                 title: {
 
                     display: false,
-                    text: "Flow rate (m³/s)",
+                    text: "Strain (m³/s)",
                     font: {
                         family: "Poppins",
                         size: 12,
@@ -418,7 +355,7 @@ function Dashboard() {
                 title: {
 
                     display: false,
-                    text: "Temperature (°C)",
+                    text: "Depth (°C)",
                     font: {
                         family: "Poppins",
                         size: 12,
@@ -469,20 +406,20 @@ function Dashboard() {
                 <p>Stay Informed with Real-Time Flood Data and Insights</p>
                 <div className="dashboard-2">
                     <div className="dashboard-3">
-                        <h1>Water Level - Meter</h1>
+                        <h1>SeismicActivity - Meter</h1>
                         <Line data={chartData} options={options} />
                     </div>
                     <div className="dashboard-3">
-                        <h1>Rainfall - Millimeters</h1>
+                        <h1>Acceleration - Millimeters</h1>
                         <Line data={chartData1} options={options1} />
                     </div>
                     <div className="dashboard-3">
-                        <h1>Flow Rate - m³/s</h1>
+                        <h1>Strain - m³/s</h1>
                         <Line data={chartData2} options={options2} />
 
                     </div>
                     <div className="dashboard-3">
-                        <h1>Soil Moisture - %</h1>
+                        <h1>Depth - %</h1>
                         <Line data={chartData3} options={options3} />
 
                     </div>
@@ -492,87 +429,45 @@ function Dashboard() {
 
 
             <div className="dashboard-4">
-                <h1>Flood Risk Assessment</h1>
-                <p>Evaluate the immediate flood risks based on live data.</p>
+                <h1>Flood Monitoring Dashboard</h1>
+                <p>Stay Informed with Real-Time Flood Data and Insights</p>
                 <div className="dashboard-5">
                     <div className="dashboard-6">
-                        <h2>Water Level</h2>
-                        <h1>{floodData.current_waterLevel}</h1>
-                        {diffwaterlevel >= 0 ? (
-                            <h2 style={{ color: "green" }}>+ {diffwaterlevel} m</h2>
+                        <h2>SeismicActivity</h2>
+                        <h1>{floodData.current_seismicActivity}</h1>
+                        {diffseismicActivity >= 0 ? (
+                            <h2 style={{ color: "green" }}>+ {diffseismicActivity} m</h2>
                         ) : (
-                            <h2 style={{ color: "red" }}>{diffwaterlevel} m</h2>
+                            <h2 style={{ color: "red" }}>{diffseismicActivity} m</h2>
                         )}
                     </div>
                     <div className="dashboard-6">
-                        <h2>Rainfall</h2>
-                        <h1>{floodData.current_rainfall}</h1>
-                        {diffrainfall >= 0 ? (
-                            <h2 style={{ color: "green" }}>+ {diffrainfall} mm</h2>
+                        <h2>Acceleration</h2>
+                        <h1>{floodData.current_acceleration}</h1>
+                        {diffacceleration >= 0 ? (
+                            <h2 style={{ color: "green" }}>+ {diffacceleration} mm</h2>
                         ) : (
-                            <h2 style={{ color: "red" }}>{diffrainfall} mm</h2>
+                            <h2 style={{ color: "red" }}>{diffacceleration} mm</h2>
                         )}
                     </div>
                     <div className="dashboard-6">
-                        <h2>Flow Rate</h2>
-                        <h1>{floodData.current_flowRate}</h1>
-                        {diffflowrate >= 0 ? (
-                            <h2 style={{ color: "green" }}>+ {diffflowrate} m³/s</h2>
+                        <h2>Strain</h2>
+                        <h1>{floodData.current_strain}</h1>
+                        {diffstrain >= 0 ? (
+                            <h2 style={{ color: "green" }}>+ {diffstrain} m³/s</h2>
                         ) : (
-                            <h2 style={{ color: "red" }}>{diffflowrate} m³/s</h2>
+                            <h2 style={{ color: "red" }}>{diffstrain} m³/s</h2>
                         )}
                     </div>
                     <div className="dashboard-6">
                         <h2>Soil Moisture</h2>
-                        <h1>{floodData.current_soilMoisture}</h1>
-                        {diffsoil >= 0 ? (
-                            <h2 style={{ color: "green" }}>+ {diffsoil} %</h2>
+                        <h1>{floodData.current_depth}</h1>
+                        {diffdepth >= 0 ? (
+                            <h2 style={{ color: "green" }}>+ {diffdepth} %</h2>
                         ) : (
-                            <h2 style={{ color: "red" }}>{diffsoil} %</h2>
+                            <h2 style={{ color: "red" }}>{diffdepth} %</h2>
                         )}
                     </div>
-
-                </div>
-            </div>
-
-
-            <div className="dashboard-7">
-                <h1>Sensor Network Locations</h1>
-                <p>See where sensors are placed to collect real-time data.</p>
-                <div className="dashboard-8">
-                    <MapContainer
-                        center={[11.0254, 77.1246]}
-                        zoom={10}
-                        style={{ height: '500px', width: '100%' }}
-                    >
-                        <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
-                        />
-                        {floodLocations.map((loc, index) => (
-                            loc.coordinates && loc.coordinates.length === 2 ? (
-                                <Marker key={index} position={loc.coordinates} icon={markerIcon}>
-                                    <Popup>
-                                        <strong>{loc.device_location || "Unknown Device"}</strong>
-                                        <br />
-                                        Water Level: {loc.current_waterLevel !== undefined ? loc.current_waterLevel : "N/A"} m
-                                        <br />
-                                        Rainfall: {loc.current_rainfall !== undefined ? loc.current_rainfall : "N/A"} mm
-                                        <br />
-                                        Flow Rate: {loc.current_flowRate !== undefined ? loc.current_flowRate : "N/A"} m³/s
-                                        <br />
-                                        Soil Moisture: {loc.current_soilMoisture !== undefined ? loc.current_soilMoisture : "N/A"} %
-                                        <br />
-                                        Date: {loc.current_date || "N/A"}
-                                        <br />
-                                        Time: {loc.current_time || "N/A"}
-                                        <br />
-                                    </Popup>
-                                </Marker>
-                            ) : null
-                        ))}
-
-                    </MapContainer>
 
                 </div>
             </div>
@@ -580,4 +475,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default EarthQuakeMonitoring;
