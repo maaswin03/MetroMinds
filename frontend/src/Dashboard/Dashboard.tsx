@@ -553,7 +553,7 @@ function Dashboard() {
                             loc.coordinates && loc.coordinates.length === 2 ? (
                                 <Marker key={index} position={loc.coordinates} icon={markerIcon}>
                                     <Popup>
-                                        <strong style={{fontWeight:'500'}}>{loc.device_location || "Unknown Device"}</strong>
+                                        <strong style={{fontWeight:'700'}}>{loc.device_location || "Unknown Device"}</strong>
                                         <br />
                                         Water Level : {loc.current_waterLevel !== undefined ? loc.current_waterLevel : "N/A"} m
                                         <br />

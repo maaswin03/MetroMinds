@@ -5,12 +5,13 @@ import Home from "./Home/Home";
 import Signin from "./Autentication/Signin";
 import EarthQuakeMonitoring from "./EarthQuakeMonitoring/EarthQuakeMonitoring";
 import Citysoundmonitoring from "./Citysoundmonitoring/Citysoundmonitoring";
+import Loading from "./AddedWidget/Loading";
 
 export default function App() {
   const { isSignedIn, isLoaded } = useAuth();
   
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   return (
