@@ -98,7 +98,6 @@ app.get("/flood_monitoring_data_all", async (req, res) => {
 });
 
 
-
 app.post("/Earthquake_monitoring_data", async (req, res) => {
   const device_id = req.body.device_id;
 
@@ -119,6 +118,23 @@ app.post("/Earthquake_monitoring_data", async (req, res) => {
   }
 });
 
+
+app.get("/Earthquake_monitoring_data_all", async (req, res) => {
+  try {
+    const data = await Earthquake_monitoring_data.find({}).toArray(function(err, result) {
+      if (err) throw err;
+    });
+
+    if (data && data.length > 0) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({ message: "No data found for the specified criteria." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error: error.message });
+  }
+});
+
 app.post("/City_sound_monitoring_data", async (req, res) => {
   const device_id = req.body.device_id;
 
@@ -136,6 +152,23 @@ app.post("/City_sound_monitoring_data", async (req, res) => {
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
+  }
+});
+
+
+app.get("/City_sound_monitoring_data", async (req, res) => {
+  try {
+    const data = await City_sound_monitoring_data.find({}).toArray(function(err, result) {
+      if (err) throw err;
+    });
+
+    if (data && data.length > 0) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({ message: "No data found for the specified criteria." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error: error.message });
   }
 });
 

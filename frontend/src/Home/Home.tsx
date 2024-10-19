@@ -7,7 +7,6 @@ import './Home.css'
 import BentoDemo from "./BentoDemo";
 import { Globe } from "@/components/ui/globe";
 import Footer from "@/AddedWidget/Footer";
-// import MarqueeDemo from "./Marqueedemo";
 
 function Home() {
   const { theme } = useTheme();

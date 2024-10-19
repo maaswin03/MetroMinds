@@ -24,6 +24,7 @@ import {
     Legend,
     Filler,
 } from "chart.js";
+import Footer from "@/AddedWidget/Footer";
 
 ChartJS.register(
     CategoryScale,
@@ -543,7 +544,7 @@ function Dashboard() {
                     <MapContainer
                         center={[11.0254, 77.1246]}
                         zoom={10}
-                        style={{ height: '500px', width: '100%' , fontFamily:'Poppins',letterSpacing:'0.7px',fontWeight:'300'}}
+                        style={{ height: '500px', width: '100%', fontFamily: 'Poppins', letterSpacing: '0.7px', fontWeight: '300' }}
                     >
                         <TileLayer
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -553,7 +554,7 @@ function Dashboard() {
                             loc.coordinates && loc.coordinates.length === 2 ? (
                                 <Marker key={index} position={loc.coordinates} icon={markerIcon}>
                                     <Popup>
-                                        <strong style={{fontWeight:'700'}}>{loc.device_location || "Unknown Device"}</strong>
+                                        <strong style={{ fontWeight: '700' }}>{loc.device_location || "Unknown Device"}</strong>
                                         <br />
                                         Water Level : {loc.current_waterLevel !== undefined ? loc.current_waterLevel : "N/A"} m
                                         <br />
@@ -576,6 +577,74 @@ function Dashboard() {
 
                 </div>
             </div>
+
+
+            <div className="dashboard-9">
+                <h1>Historical Data</h1>
+                <p>Analyzing historical data reveals trends and insights</p>
+                <table className="dashboard-10">
+                    <tbody>
+
+                        <tr id="dash12">
+                            <td>Date</td>
+                            <td>Water Level</td>
+                            <td>Rainfall</td>
+                            <td>Flowrate</td>
+                            <td>Soil Moisture</td>
+                        </tr>
+
+                        <tr>
+                            <td>{floodData.current_time}</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.current_waterLevel} m</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.current_rainfall} mm</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.current_flowRate} m³/s</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.current_soilMoisture} %</td>
+                        </tr>
+
+                        <tr>
+                            <td>{floodData.previous1_time}</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous1_waterLevel} m</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous1_rainfall} mm</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous1_flowRate} m³/s</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous1_soilMoisture} %</td>
+                        </tr>
+
+                        <tr>
+                            <td>{floodData.previous2_time}</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous2_waterLevel} m</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous2_rainfall} mm</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous2_flowRate} m³/s</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous2_soilMoisture} %</td>
+                        </tr>
+
+                        <tr>
+                            <td>{floodData.previous3_time}</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous3_waterLevel} m</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous3_rainfall} mm</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous3_flowRate} m³/s</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous3_soilMoisture} %</td>
+                        </tr>
+
+                        <tr>
+                            <td>{floodData.previous4_time}</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous4_waterLevel} m</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous4_rainfall} mm</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous4_flowRate} m³/s</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous4_soilMoisture} %</td>
+                        </tr>
+
+                        <tr>
+                            <td>{floodData.previous5_time}</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous5_waterLevel} m</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous5_rainfall} mm</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous5_flowRate} m³/s</td>
+                            <td style={{ color: "#4F7D96" }}>{floodData.previous5_soilMoisture} %</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <Footer/>
         </>
     );
 }

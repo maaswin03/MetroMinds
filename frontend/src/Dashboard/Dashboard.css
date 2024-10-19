@@ -33,19 +33,20 @@
   border-radius: 15px;
   margin: auto;
   margin-bottom: 2%;
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
   padding: 2%;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.dashboard-3 h1{
+.dashboard-3 h1 {
   font-size: 15px;
   font-weight: 300;
 }
-
 
 .dashboard-4 {
   width: 90%;
@@ -83,24 +84,25 @@
   margin: auto;
   margin-bottom: 2%;
   padding: 2%;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.dashboard-6 h2{
+.dashboard-6 h2 {
   font-size: 15px;
   font-weight: 300;
   font-family: Poppins;
 }
 
-.dashboard-6 h1{
+.dashboard-6 h1 {
   font-size: 40px;
   text-align: center;
   margin-top: 2%;
   margin-bottom: 2%;
 }
 
-
-.dashboard-7{
+.dashboard-7 {
   width: 90%;
   margin: auto;
   margin-top: 3%;
@@ -122,10 +124,66 @@
   margin-bottom: 2%;
 }
 
-
-.dashboard-8{
+.dashboard-8 {
   width: 100%;
   margin: auto;
   font-family: Poppins;
 }
 
+.dashboard-9 {
+  width: 90%;
+  margin: auto;
+  margin-top: 3%;
+}
+
+.dashboard-9 h1 {
+  font-size: 30px;
+  font-weight: 800;
+  font-family: Poppins;
+  letter-spacing: 0.7px;
+}
+
+.dashboard-9 p {
+  font-weight: 300;
+  font-family: Poppins;
+  font-size: 15px;
+  letter-spacing: 0.7px;
+  line-height: 25px;
+  margin-bottom: 2%;
+}
+
+.dashboard-10 {
+  width: 100%;
+  margin-bottom: 5%;
+  border: 1px solid rgb(50, 50, 50);
+}
+
+td {
+  padding: 20px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  border: none;
+  font-family: Poppins;
+  font-weight: 400;
+  letter-spacing: 0.7px;
+}
+
+tr {
+  border-bottom: 1px solid rgb(50, 50, 50);
+}
+
+#dash12 td {
+  background-color: rgb(50, 50, 50);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  table {
+    width: 90%;
+    margin-bottom: 10%;
+  }
+  td {
+    padding: 9px;
+    font-size: 10px;
+  }
+}
