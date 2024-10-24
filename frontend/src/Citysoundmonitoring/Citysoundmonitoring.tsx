@@ -282,7 +282,7 @@ function Citysoundmonitoring() {
                         <h1>Noise Level - dB</h1>
                         <Line data={chartData} options={options} />
                     </div>
-                    <div className="dashboard-3" style={{height: chartSize.height }}>
+                    <div className="dashboard-3" style={{height: chartSize.height}}>
                         {/* <h1>Acceleration - Millimeters</h1> */}
                         <Pie data={chartData1} options={options1} />
                     </div>

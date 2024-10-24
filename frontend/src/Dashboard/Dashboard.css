@@ -178,6 +178,55 @@ tr {
 }
 
 @media (max-width: 768px) {
+  .dashboard-1{
+    width: 95%;
+  }
+  .dashboard-1 h1{
+    font-size: 20px;
+  }
+  .dashboard-3{
+    width: 100%;
+    margin-bottom: 5%;
+  }
+  .dashboard-3 h1{
+    text-align: center;
+    font-size: 15px;
+  }
+  .dashboard-4{
+    width: 95%;
+  }
+  .dashboard-4 p{
+    font-size: 12px;
+  }
+  .dashboard-4 h1{
+    font-size: 20px;
+  }
+  .dashboard-4 h2{
+    font-size: 15px;
+  }
+  .dashboard-6{
+    width: 49%;
+    margin-bottom: 5%;
+  }
+  .dashboard-7{
+    width: 95%;
+  }
+  .dashboard-7 p{
+    font-size: 12px;
+  }
+  .dashboard-7  h1{
+    font-size: 20px;
+  }
+  .dashboard-9{
+    width: 95%;
+    margin-top: 10%;
+  }
+  .dashboard-9 p{
+    font-size: 12px;
+  }
+  .dashboard-9  h1{
+    font-size: 20px;
+  }
   table {
     width: 90%;
     margin-bottom: 10%;
