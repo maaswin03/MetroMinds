@@ -10,26 +10,11 @@ import Footer from "@/AddedWidget/Footer";
 
 function Home() {
   const { theme } = useTheme();
-  const [ipAddress, setIpAddress] = useState('');
   const [color, setColor] = useState("#ffffff");
 
   useEffect(() => {
     setColor(theme === "dark" ? "#ffffff" : "#000000");
   }, [theme]);
-
-  useEffect(() => {
-    const fetchIP = async () => {
-      try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        setIpAddress(data.ip);
-      } catch (error) {
-        console.error('Error fetching IP address:', error);
-      }
-    };
-
-    fetchIP();
-  }, []);
 
   return (
     <>
@@ -70,21 +55,13 @@ function Home() {
           <div className="home-9">
             <h1>Transforming India with Sustainable Urban Management</h1>
             <p>Ready to explore? Visit the MetroMinds dashboard for intuitive tools and interfaces that streamline urban management.</p>
-            <div>
-              <h1>Your IP Address</h1>
-              {ipAddress ? (
-                <p>Your IP address is: {ipAddress}</p>
-              ) : (
-                <p>Loading your IP address...</p>
-              )}
-            </div>
             <RainbowButton style={{ marginTop: '2%', fontFamily: 'Poppins', fontWeight: '400', letterSpacing: '0.7px', fontSize: '13px' }}>Go to dashboard</RainbowButton>
           </div>
         </div>
       </div>
 
-      <div className="home-10">
-      </div>
+      {/* <div className="home-10">
+      </div> */}
 
       <Footer />
     </>

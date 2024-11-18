@@ -29,9 +29,9 @@ function Navbar() {
 
         <div className="navbar-2 navbar-5">
           {isSignedIn ? (
-            <UserButton afterSignOutUrl="/" />
+            <UserButton/>
           ) : (
-            <Link to="/Signin">Signin</Link>
+            <Link to="/Signin">  login </Link>
           )}
         </div>
 
