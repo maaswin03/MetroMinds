@@ -77,20 +77,20 @@ function RedirectAuthenticated({ children }: { children: JSX.Element }) {
   return children;
 }
 
-function PrivateRoute({ children }: { children: JSX.Element }) {
-  const { isAuthenticated } = useAuth();
+// function PrivateRoute({ children }: { children: JSX.Element }) {
+//   const { isAuthenticated } = useAuth();
 
-  if (isAuthenticated === null) {
-    return (
-      <div>
-        <FourSquare color="blue" size="medium" text="" textColor="" />
-      </div>
-    );
-  }
+//   if (isAuthenticated === null) {
+//     return (
+//       <div>
+//         <FourSquare color="blue" size="medium" text="" textColor="" />
+//       </div>
+//     );
+//   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/User/Authentication" />;
-  }
+//   if (!isAuthenticated) {
+//     return <Navigate to="/User/Authentication" />;
+//   }
 
-  return children;
-}
+//   return children;
+// }
