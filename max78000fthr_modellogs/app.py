@@ -1,2 +1,0 @@
-def funtion():
-    print("hello")
