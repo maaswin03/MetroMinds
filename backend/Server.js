@@ -22,7 +22,8 @@ let flood_monitoring_data;
 let Earthquake_monitoring_data;
 let Noise_monitoring_data;
 let Traffic_monitoring_data;
-let Waste_monitoring_data
+let Waste_monitoring_data;
+let User;
 
 async function run() {
   try {
@@ -34,6 +35,7 @@ async function run() {
     Noise_monitoring_data = db.collection("Noise_data");
     Traffic_monitoring_data = db.collection("Traffic_data");
     Waste_monitoring_data = db.collection("Waste_data");
+    User = db.collection("UserInfo");
 
 
     console.log("Successfully connected to MongoDB!");
@@ -43,6 +45,41 @@ async function run() {
 }
 
 run().catch(console.dir);
+
+app.post("/user/authentication", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email and password are required." });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    res.status(200).json({
+      message: "Login successful.",
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "An error occurred during login." });
+  }
+});
+
 
 app.get("/dashboard-data", async (req, res) => {
   const currentDate = new Date();

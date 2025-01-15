@@ -19,14 +19,14 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/User/Authentication" element={<RedirectAuthenticated><Userlogin /></RedirectAuthenticated>} />
+        <Route path="/User/Authentication" element={<RedirectAuthenticated><Userlogin /></RedirectAuthenticated>} />
         <Route path="/Dashboard/FloodMonitoring" element={<PrivateRoute><FloodMonitoring/></PrivateRoute>} />
         <Route path="/Dashboard/EarthquakeMonitoring" element={<PrivateRoute><EarthquakeMonitoring/></PrivateRoute>} />
         <Route path="/Dashboard/WasteMonitoring" element={<PrivateRoute><WasteMonitoring/></PrivateRoute>} />
         <Route path="/Dashboard/NoiseMonitoring" element={<PrivateRoute><NoiseMonitoring/></PrivateRoute>} />
-        <Route path="/Dashboard/TrafficMonitoring" element={<PrivateRoute><TrafficMonitoring/></PrivateRoute>} /> */}
+        <Route path="/Dashboard/TrafficMonitoring" element={<PrivateRoute><TrafficMonitoring/></PrivateRoute>} />
 
-        <Route
+        {/* <Route
           path="/User/Authentication"
           element={
             <RedirectAuthenticated>
@@ -53,7 +53,7 @@ export default function App() {
         <Route
           path="/Dashboard/TrafficMonitoring"
           element={<TrafficMonitoring />}
-        />
+        /> */}
       </Routes>
     </Router>
   );
@@ -77,20 +77,20 @@ function RedirectAuthenticated({ children }: { children: JSX.Element }) {
   return children;
 }
 
-// function PrivateRoute({ children }: { children: JSX.Element }) {
-//   const { isAuthenticated } = useAuth();
+function PrivateRoute({ children }: { children: JSX.Element }) {
+  const { isAuthenticated } = useAuth();
 
-//   if (isAuthenticated === null) {
-//     return (
-//       <div>
-//         <FourSquare color="blue" size="medium" text="" textColor="" />
-//       </div>
-//     );
-//   }
+  if (isAuthenticated === null) {
+    return (
+      <div>
+        <FourSquare color="blue" size="medium" text="" textColor="" />
+      </div>
+    );
+  }
 
-//   if (!isAuthenticated) {
-//     return <Navigate to="/User/Authentication" />;
-//   }
+  if (!isAuthenticated) {
+    return <Navigate to="/User/Authentication" />;
+  }
 
-//   return children;
-// }
+  return children;
+}
