@@ -72,7 +72,7 @@ export default function EarthquakeMonitoring() {
 
     try {
       const res = await axios.get<ResponseData>(
-        "http://127.0.0.1:5200/earthquake_suggestions"
+        "https://metrominds.onrender.com/earthquake_suggestions"
       );
       const responseText = res.data.text;
 

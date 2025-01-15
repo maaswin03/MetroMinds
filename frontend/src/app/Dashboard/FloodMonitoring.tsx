@@ -72,7 +72,7 @@ export default function FloodMonitoring() {
 
     try {
       const res = await axios.get<ResponseData>(
-        "http://127.0.0.1:5200/flood_suggestions"
+        "https://metrominds.onrender.com/flood_suggestions"
       );
       const responseText = res.data.text;
 
