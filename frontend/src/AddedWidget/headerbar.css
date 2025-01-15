@@ -1,0 +1,36 @@
+.headerbar1{
+    width: 90%;
+    margin: auto;
+    margin-top: 2%;
+    font-family: Poppins;
+}
+
+.headerbar1 h1{
+    font-size: 30px;
+    font-weight: 800;
+    font-family: Poppins;
+    letter-spacing: 0.7px;
+}
+
+.headerbar2{
+    display: flex;
+    margin-top: 1%;
+}
+
+.headerbar2 li{
+    list-style: none;
+    margin-right: 5%;
+}
+
+.headerbar2 a{
+    text-decoration: none;
+    color: black;
+    font-weight: 300;
+    font-size: 15px;
+    font-family: Poppins;
+    letter-spacing: 0.7px;
+}
+
+.headerbar2 a:hover{
+    color: #6c47ff;
+}

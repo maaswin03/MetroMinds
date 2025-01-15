@@ -25,6 +25,7 @@ import {
     Filler,
 } from "chart.js";
 import Footer from "@/AddedWidget/Footer";
+import Headerbar from "@/AddedWidget/headerbar";
 
 ChartJS.register(
     CategoryScale,
@@ -464,6 +465,8 @@ function Dashboard() {
     return (
         <>
             <Navbar />
+
+            <Headerbar/>
 
             <div className="dashboard-1">
                 <h1>Flood Monitoring Dashboard</h1>
