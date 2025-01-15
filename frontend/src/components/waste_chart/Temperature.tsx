@@ -81,8 +81,8 @@ export function Temperature() {
             data={chartData}
             margin={{
               top: 20,
-              left: 20,
-              right: 20,
+              left: 5,
+              right: 5,
               bottom: 20,
             }}
           >

@@ -46,7 +46,9 @@ export default function TrafficMonitoring() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://metrominds.onrender.com/dashboard-data");
+        const response = await fetch(
+          "https://metrominds.onrender.com/dashboard-data"
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -61,6 +63,8 @@ export default function TrafficMonitoring() {
 
     fetchData();
   }, []);
+
+  const highTrafficLocations = data.filter((item) => item.trafficDensity > 100);
 
   return (
     <SidebarProvider>
@@ -88,7 +92,7 @@ export default function TrafficMonitoring() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <TrafficDensityChart />
           <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-            <VehicleCountChart/>
+            <VehicleCountChart />
           </div>
         </div>
 
@@ -142,6 +146,50 @@ export default function TrafficMonitoring() {
             )}
           </div>
         </div>
+
+        {highTrafficLocations.length > 0 && (
+          <div className="flex flex-1 flex-col gap-0 p-4 pt-0 mt-5 bg-black text-white">
+            <h1 className="text-2xl font-extrabold mt-2 mb-0">
+              Alert: High Traffic Density
+            </h1>
+            <p className="text-sm mt-0 mb-3">
+              These locations have exceeded the safe threshold for traffic
+              density.
+            </p>
+            <table className="min-w-full bg-black border border-gray-400 rounded-lg shadow-md">
+              <thead>
+                <tr className="bg-gray-800">
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Location
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Vehicle Count
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Date
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Traffic Density (vehicles/km²)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {highTrafficLocations.map((item, index) => (
+                  <tr key={index} className="border-b border-gray-400">
+                    <td className="px-4 py-2 text-center">{index + 1}</td>
+                    <td className="px-4 py-2 text-center">
+                      {item.vehicleCount}
+                    </td>
+                    <td className="px-4 py-2 text-center">{item.date}</td>
+                    <td className="px-4 py-2 text-center">
+                      {item.trafficDensity} vehicles/km²
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </SidebarInset>
     </SidebarProvider>
   );

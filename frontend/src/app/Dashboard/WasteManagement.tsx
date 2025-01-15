@@ -48,7 +48,9 @@ export default function WasteMonitoring() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://metrominds.onrender.com/dashboard-data");
+        const response = await fetch(
+          "https://metrominds.onrender.com/dashboard-data"
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -63,6 +65,8 @@ export default function WasteMonitoring() {
 
     fetchData();
   }, []);
+
+  const overfilledBins = Data.filter((item) => item.metersFilled > 5);
 
   return (
     <SidebarProvider>
@@ -88,18 +92,19 @@ export default function WasteMonitoring() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Weight/>
+          <Weight />
           <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-            <Temperature/>
-            <MetersFilled/>
+            <Temperature />
+            <MetersFilled />
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-0 p-4 pt-0">
           <h1 className="text-2xl font-extrabold mt-2 mb-0">
-            Current Readings
+            Noise Monitoring Map
           </h1>
           <p className="text-sm mt-0 mb-3">
-            This displays the current readings for various parameters.
+            This map shows the smart bins and their weight across various
+            locations.
           </p>
         </div>
 
@@ -144,6 +149,46 @@ export default function WasteMonitoring() {
             )}
           </div>
         </div>
+
+        {overfilledBins.length > 0 && (
+          <div className="flex flex-1 flex-col gap-0 p-4 pt-0 mt-5 bg-black text-white">
+            <h1 className="text-2xl font-extrabold mt-2 mb-0">
+              Alert: Overfilled Smart Bins
+            </h1>
+            <p className="text-sm mt-0 mb-3">
+              These bins have exceeded the safe threshold of 80% and require
+              attention.
+            </p>
+            <table className="min-w-full bg-black border border-gray-400 rounded-lg shadow-md">
+              <thead>
+                <tr className="bg-gray-800">
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Location
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Meters Filled (m)
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Date
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Fire Risk
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {overfilledBins.map((bin, index) => (
+                  <tr key={index} className="border-b border-gray-400">
+                    <td className="px-4 py-2 text-center">{index + 1}</td>
+                    <td className="px-4 py-2 text-center">{bin.metersFilled}m</td>
+                    <td className="px-4 py-2 text-center">{bin.date}</td>
+                    <td className="px-4 py-2 text-center">{bin.fire ? "Yes" : "No"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </SidebarInset>
     </SidebarProvider>
   );

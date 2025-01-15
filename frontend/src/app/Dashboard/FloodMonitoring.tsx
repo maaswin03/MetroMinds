@@ -5,6 +5,7 @@ import { SoilMoisture } from "@/components/flood_chart/SoilMoisture";
 import { WaterLevel } from "@/components/flood_chart/Waterlevel";
 import { AppSidebar } from "@/components/main/app-sidebar";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -53,8 +54,38 @@ interface flooddata {
   waterLevel: number;
 }
 
+interface ResponseData {
+  text: string;
+}
+
 export default function FloodMonitoring() {
   const [Data, setData] = useState<flooddata[]>([]);
+  const [cleanedData, setcleanedData] = useState<String>(" ");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+
+    setLoading(true); 
+
+    try {
+      const res = await axios.get<ResponseData>(
+        "http://127.0.0.1:5200/flood_suggestions"
+      );
+      const responseText = res.data.text;
+
+      const cleanedResponse = responseText.replace(/\*/g, "");
+      setcleanedData(cleanedResponse);
+
+      console.log(cleanedResponse);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,9 +112,6 @@ export default function FloodMonitoring() {
   const longitude = Data[0]?.longitude || 77;
 
   const position: [number, number] = [latitude, longitude];
-
-
-
 
   return (
     <SidebarProvider>
@@ -194,7 +222,7 @@ export default function FloodMonitoring() {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 mb-3 mt-3">
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 mb-3 mt-5">
           <div className="grid auto-rows-min gap-4">
             {position ? (
               <MapContainer
@@ -210,13 +238,11 @@ export default function FloodMonitoring() {
                   <Popup>
                     <strong style={{ fontWeight: "700" }}>Max78000fthr</strong>
                     <br />
-                    Rainfall Intensity : {Data[0]?.rainfallIntensity|| "N/A"} m
+                    Rainfall Intensity : {Data[0]?.rainfallIntensity || "N/A"} m
                     <br />
-                    Soil Moisture :{" "}
-                    {Data[0]?.soilMoisture || "N/A"} %
+                    Soil Moisture : {Data[0]?.soilMoisture || "N/A"} %
                     <br />
-                    Water Level :{" "}
-                    {Data[0]?.waterLevel || "N/A"} m 
+                    Water Level : {Data[0]?.waterLevel || "N/A"} m
                     <br />
                     Air Temperature : {Data[0]?.airTemperature || "N/A"} °C
                     <br />
@@ -230,6 +256,60 @@ export default function FloodMonitoring() {
             ) : (
               <div>Loading map...</div>
             )}
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col gap-0 p-4 pt-0 mb-3 mt-5">
+          <h1 className="text-2xl font-extrabold mt-2 mb-1">
+            Flood Prediction Alerts
+          </h1>
+          <p className="text-sm mt-0 mb-5">
+            This displays flood risk predictions based on current environmental
+            data.
+          </p>
+
+          <div className="mb-5">
+            <Card>
+              <CardHeader>
+                <CardTitle>Flood Risk Based on Current Water Levels</CardTitle>
+                <CardDescription>Current Risk Levels</CardDescription>
+              </CardHeader>
+              <CardContent className="text-justify">
+                {loading ? (
+                  <p className="font-normal text-sm text-primary">
+                    Loading prediction...
+                  </p>
+                ) : cleanedData.length > 10 ? (
+                  <p className="font-normal text-sm text-primary">
+                    {cleanedData}
+                  </p>
+                ) : (
+                  <p className="text-sm mt-2">
+                    Click the "Get Prediction" button below for further
+                    insights.
+                  </p>
+                )}
+              </CardContent>
+              <CardFooter>
+                <CardDescription>
+                  <button
+                    style={{
+                      marginTop: "2%",
+                      fontFamily: "Poppins",
+                      fontWeight: "400",
+                      letterSpacing: "0.7px",
+                      fontSize: "13px",
+                      backgroundColor: "blue",
+                      padding: "5px 20px 5px 20px",
+                      borderRadius: "10px",
+                    }}
+                    onClick={handleSubmit}
+                    disabled={loading} // Disable the button while loading
+                  >
+                    {loading ? "Getting Prediction..." : "Get Prediction"}
+                  </button>
+                </CardDescription>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </SidebarInset>

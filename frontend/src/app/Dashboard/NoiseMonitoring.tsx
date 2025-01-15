@@ -47,7 +47,9 @@ export default function NoiseMonitoring() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://metrominds.onrender.com/dashboard-data");
+        const response = await fetch(
+          "https://metrominds.onrender.com/dashboard-data"
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -62,6 +64,10 @@ export default function NoiseMonitoring() {
 
     fetchData();
   }, []);
+
+  const highNoiseLocations = Data.filter((item) => item.peakSoundLevel > 90);
+
+  console.log(highNoiseLocations)
 
   return (
     <SidebarProvider>
@@ -87,10 +93,10 @@ export default function NoiseMonitoring() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <PeakSoundLevelChart/>
+          <PeakSoundLevelChart />
           <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-            <NoiseLevelChart/>
-            <DurationOfSoundEvents/>
+            <NoiseLevelChart />
+            <DurationOfSoundEvents />
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-0 p-4 pt-0">
@@ -129,7 +135,8 @@ export default function NoiseMonitoring() {
                       <br />
                       Noise Level : {item.noiseLevel || "N/A"} Db
                       <br />
-                      Duration Of SoundEvents: {item.durationOfSoundEvents || "N/A"} Sec
+                      Duration Of SoundEvents:{" "}
+                      {item.durationOfSoundEvents || "N/A"} Sec
                       <br />
                       Date: {item.date || "N/A"}
                     </Popup>
@@ -141,6 +148,49 @@ export default function NoiseMonitoring() {
             )}
           </div>
         </div>
+
+        {highNoiseLocations.length > 0 && (
+          <div className="flex flex-1 flex-col gap-0 p-4 pt-0 mt-5 bg-black text-white">
+            <h1 className="text-2xl font-extrabold mt-2 mb-0">
+              Alert: High Noise Levels
+            </h1>
+            <p className="text-sm mt-0 mb-3">
+              These locations have exceeded the safe threshold for noise levels.
+            </p>
+            <table className="min-w-full bg-black border border-gray-400 rounded-lg shadow-md">
+              <thead>
+                <tr className="bg-gray-800">
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Location
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Noise Level (dB)
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Date
+                  </th>
+                  <th className="px-4 py-2 text-left text-sm font-semibold text-center">
+                    Duration of Sound Events (Sec)
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {highNoiseLocations.map((item, index) => (
+                  <tr key={index} className="border-b border-gray-400">
+                    <td className="px-4 py-2 text-center">{index + 1}</td>
+                    <td className="px-4 py-2 text-center">
+                      {item.noiseLevel} dB
+                    </td>
+                    <td className="px-4 py-2 text-center">{item.date}</td>
+                    <td className="px-4 py-2 text-center">
+                      {item.durationOfSoundEvents} sec
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </SidebarInset>
     </SidebarProvider>
   );

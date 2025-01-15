@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/main/app-sidebar";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -53,8 +54,38 @@ interface earthquakeData {
   vibrationIntensity: number;
 }
 
+interface ResponseData {
+  text: string;
+}
+
 export default function EarthquakeMonitoring() {
   const [Data, setData] = useState<earthquakeData[]>([]);
+  const [cleanedData, setcleanedData] = useState<String>(" ");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+      const res = await axios.get<ResponseData>(
+        "http://127.0.0.1:5200/earthquake_suggestions"
+      );
+      const responseText = res.data.text;
+
+      const cleanedResponse = responseText.replace(/\*/g, "");
+      setcleanedData(cleanedResponse);
+
+      console.log(cleanedResponse);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,10 +137,10 @@ export default function EarthquakeMonitoring() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <Acceleration/>
+          <Acceleration />
           <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-            <Strain/>
-            <VibrationIntensity/>
+            <Strain />
+            <VibrationIntensity />
           </div>
         </div>
 
@@ -161,7 +192,9 @@ export default function EarthquakeMonitoring() {
                 </CardHeader>
                 <CardContent className="text-center">
                   <p className="text-2xl font-extrabold text-primary">
-                    {Data[0]?.acceleration.x || "N/A"} , {Data[0]?.acceleration.y || "N/A"} , {Data[0]?.acceleration.z || "N/A"}
+                    {Data[0]?.acceleration.x || "N/A"} ,{" "}
+                    {Data[0]?.acceleration.y || "N/A"} ,{" "}
+                    {Data[0]?.acceleration.z || "N/A"}
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -188,13 +221,15 @@ export default function EarthquakeMonitoring() {
                   <Popup>
                     <strong style={{ fontWeight: "700" }}>Max78000fthr</strong>
                     <br />
-                    Strain : {Data[0]?.strain|| "N/A"}
+                    Strain : {Data[0]?.strain || "N/A"}
                     <br />
-                    Vibration Intensity :{" "}
-                    {Data[0]?.vibrationIntensity || "N/A"} %
+                    Vibration Intensity : {Data[0]?.vibrationIntensity ||
+                      "N/A"}{" "}
+                    %
                     <br />
-                    Acceleration :{" "}
-                    {Data[0]?.acceleration.x || "N/A"} , {Data[0]?.acceleration.y || "N/A"}  , {Data[0]?.acceleration.z || "N/A"} m 
+                    Acceleration : {Data[0]?.acceleration.x || "N/A"} ,{" "}
+                    {Data[0]?.acceleration.y || "N/A"} ,{" "}
+                    {Data[0]?.acceleration.z || "N/A"} m
                     <br />
                     Date : {Data[0]?.date || "N/A"}
                     <br />
@@ -204,6 +239,63 @@ export default function EarthquakeMonitoring() {
             ) : (
               <div>Loading map...</div>
             )}
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col gap-0 p-4 pt-0 mb-3 mt-5">
+          <h1 className="text-2xl font-extrabold mt-2 mb-1">
+            Earthquake Prediction Alerts
+          </h1>
+          <p className="text-sm mt-0 mb-5">
+            This displays earthquake risk predictions based on current seismic
+            data.
+          </p>
+
+          <div className="mb-5">
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  Earthquake Risk Based on Current Seismic Activity
+                </CardTitle>
+                <CardDescription>Current Risk Levels</CardDescription>
+              </CardHeader>
+              <CardContent className="text-justify">
+                {loading ? (
+                  <p className="font-normal text-sm text-primary">
+                    Loading prediction...
+                  </p>
+                ) : cleanedData.length > 10 ? (
+                  <p className="font-normal text-sm text-primary">
+                    {cleanedData}
+                  </p>
+                ) : (
+                  <p className="text-sm mt-2">
+                    Click the "Get Prediction" button below for further
+                    insights.
+                  </p>
+                )}
+              </CardContent>
+              <CardFooter>
+                <CardDescription>
+                  <button
+                    style={{
+                      marginTop: "2%",
+                      fontFamily: "Poppins",
+                      fontWeight: "400",
+                      letterSpacing: "0.7px",
+                      fontSize: "13px",
+                      backgroundColor: "blue",
+                      padding: "5px 20px 5px 20px",
+                      borderRadius: "10px",
+                    }}
+                    onClick={handleSubmit}
+                    disabled={loading} // Disable the button while loading
+                  >
+                    {loading ? "Getting Prediction..." : "Get Prediction"}
+                  </button>
+                </CardDescription>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </SidebarInset>

@@ -50,11 +50,7 @@ const data = {
       url: "/",
       icon: PieChart,
       items: [
-        { title: "Flood Reports", url: "/" },
-        { title: "Seismic Reports", url: "/" },
-        { title: "Traffic Reports", url: "/" },
-        { title: "Noise Reports", url: "/" },
-        { title: "Waste Management Reports", url: "/" },
+        { title: "Download Reports", url: "/" },
       ],
     },
     {
@@ -70,10 +66,6 @@ const data = {
       title: "Settings",
       url: "/",
       icon: Settings2,
-      items: [
-        { title: "General Settings", url: "/" },
-        { title: "Alert Configurations", url: "/" },
-      ],
     },
   ],
 };
