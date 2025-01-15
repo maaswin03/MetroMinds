@@ -1,0 +1,53 @@
+2025-01-15 17:06:50,976 - Log file for this run: /Users/kyroz/Documents/VSCode/max78000-model/ai8x-training/logs/2025.01.15-170650/2025.01.15-170650.log
+2025-01-15 17:06:50,977 - The open file limit is 256. Please raise the limit (see documentation).
+2025-01-15 17:06:50,977 - Configuring device: MAX78000, simulate=True.
+2025-01-15 17:06:51,049 - => loading checkpoint ../ai8x-synthesis/trained/ai85-waste-qat8-q.pth.tar
+2025-01-15 17:06:51,052 - => Checkpoint contents:
++----------------------+-------------+------------+
+| Key                  | Type        | Value      |
+|----------------------+-------------+------------|
+| arch                 | str         | ai85bionet |
+| compression_sched    | dict        |            |
+| epoch                | int         | 7          |
+| extras               | dict        |            |
+| optimizer_state_dict | dict        |            |
+| optimizer_type       | type        | Adam       |
+| state_dict           | OrderedDict |            |
++----------------------+-------------+------------+
+
+2025-01-15 17:06:51,053 - => Checkpoint['extras'] contents:
++-----------------+--------+-------------------+
+| Key             | Type   | Value             |
+|-----------------+--------+-------------------|
+| best_epoch      | int    | 7                 |
+| best_mAP        | int    | 0                 |
+| best_top1       | float  | 91.17156208277703 |
+| clipping_method | str    | MAX_BIT_SHIFT     |
+| current_mAP     | int    | 0                 |
+| current_top1    | float  | 91.17156208277703 |
++-----------------+--------+-------------------+
+
+2025-01-15 17:06:51,055 - Loaded compression schedule from checkpoint (epoch 7)
+2025-01-15 17:06:51,088 - => loaded 'state_dict' from checkpoint '../ai8x-synthesis/trained/ai85-waste-qat8-q.pth.tar'
+2025-01-15 17:06:51,101 - Optimizer Type: <class 'torch.optim.sgd.SGD'>
+2025-01-15 17:06:51,101 - Optimizer Args: {'lr': 0.1, 'momentum': 0.9, 'dampening': 0, 'weight_decay': 0.0001, 'nesterov': False, 'maximize': False, 'foreach': None, 'differentiable': False, 'fused': None}
+2025-01-15 17:06:51,818 - torch.compile() not available, using "eager" mode
+2025-01-15 17:06:51,819 - Dataset sizes:
+	test=16622
+2025-01-15 17:06:51,819 - --- test (ckpt) ---------------------
+2025-01-15 17:06:51,819 - 16622 samples (256 per mini-batch)
+2025-01-15 17:07:15,242 - Test: [   10/   65]    Loss 0.791706    Top1 85.117188    
+2025-01-15 17:07:20,502 - Test: [   20/   65]    Loss 0.788577    Top1 85.566406    
+2025-01-15 17:07:24,456 - Test: [   30/   65]    Loss 0.792353    Top1 85.533854    
+2025-01-15 17:07:28,195 - Test: [   40/   65]    Loss 0.811999    Top1 85.312500    
+2025-01-15 17:07:31,893 - Test: [   50/   65]    Loss 0.808080    Top1 85.406250    
+2025-01-15 17:07:35,445 - Test: [   60/   65]    Loss 0.810619    Top1 85.384115    
+2025-01-15 17:07:37,463 - Test: [   65/   65]    Loss 0.811970    Top1 85.386837    
+2025-01-15 17:07:57,482 - ==> Top1: 85.387    Loss: 0.812
+
+2025-01-15 17:07:57,484 - ==> Confusion:
+[[6348 2015]
+ [ 414 7845]]
+
+2025-01-15 17:07:57,488 - 
+2025-01-15 17:07:57,489 - Log file for this run: /Users/kyroz/Documents/VSCode/max78000-model/ai8x-training/logs/2025.01.15-170650/2025.01.15-170650.log
